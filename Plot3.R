@@ -11,6 +11,11 @@ data <- read.table(unz(temp, "household_power_consumption.txt"),
 ## Create subset of only the dates 1/2/2007 and 2/2/2007
 data2 <- subset(data, Date == "1/2/2007" | Date == "2/2/2007")
 
+## create variable for time
+data2$mergedtime <- paste(data2$Date, data2$Time)
+data2$mergedtime <- strptime(data2$mergedtime, format = "%d/%m/%Y %H:%M:%S")
+
+
 ## Create third plot, save it as a png
 png('plot3.png')
 plot(data2$mergedtime, data2$Sub_metering_1, type = "l", xlab = "", ylab = "Energy sub metering")
